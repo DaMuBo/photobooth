@@ -17,5 +17,5 @@ COPY ./requirements.txt /app/
 RUN pip3 install -r requirements.txt
 
 # Setze den Ausführungsbefehl beim Containerstart
-CMD ["flask", "--app", "src/frontend/flask_app", "run", "--host", "0.0.0.0"]
+CMD ["flask", "--app", "src/frontend/flask_test", "run", "--host", "0.0.0.0"]
 

@@ -5,7 +5,6 @@ import segno
 
 def make_qr_code(link: Path) -> str:
     """
-
     :param link:
     :return: string base64 encoded png of qr code
     """

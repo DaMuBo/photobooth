@@ -1,3 +1,5 @@
+import os
+
 import boto3
 from botocore.exceptions import NoCredentialsError
 
@@ -14,19 +16,23 @@ def upload_to_s3(file_path, bucket_name, object_name):
     Returns:
     - download_link (str): The URL for downloading the uploaded file.
     """
+    region = os.getenv("AWS_DEFAULT_REGION")
 
     # Set up the S3 client
-    s3 = boto3.client('s3')
+    s3 = boto3.client('s3',
+                      region_name=region,
+                      endpoint_url=f"https://s3.{region}.amazonaws.com")
 
     try:
         # Upload the file
         s3.upload_file(file_path, bucket_name, object_name)
 
         # Generate a pre-signed URL for the uploaded file
-        download_link = s3.generate_presigned_url('get_object',
-                                                  Params={'Bucket': bucket_name,
-                                                          'Key': object_name},
-                                                  ExpiresIn=42*3600)  # Link expires in 42 hours
+        download_link = s3.generate_presigned_url(
+            'get_object',
+            Params={'Bucket': bucket_name, 'Key': object_name},
+            ExpiresIn=3600  # Gültigkeitsdauer der URL in Sekunden
+        )
 
         return download_link
 

@@ -1,5 +1,6 @@
 import time
 import os
+from pathlib import Path
 
 from flask import Flask, render_template, request, redirect, url_for, Response
 
@@ -25,7 +26,8 @@ def select():
         selected_option = int(request.form.get('selected_option'))
         # Hier könnten Sie die Logik implementieren, um die Auswahl zu verarbeiten
         # und die erforderlichen Daten für die Preview-Seite vorzubereiten.
-        return redirect(url_for('preview', num_images=selected_option))
+        return redirect(url_for("result"))
+        # return redirect(url_for('preview', num_images=selected_option))
     return render_template('select.html')
 
 
@@ -37,7 +39,9 @@ def preview(num_images):
 @app.route('/result')
 def result():
     # Hier könntest du die Bilder arrangieren und das Ergebnis anzeigen
-    return render_template('result.html')
+    result_image_path = Path(__file__).resolve().parent.parent.parent / "samples" / "test_img.jpg"
+    print(result_image_path)
+    return render_template('result.html',  result_image_path=str(result_image_path))
 
 
 @app.route('/qr_code')

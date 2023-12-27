@@ -1,9 +1,15 @@
 import time
 import os
+import io
+
+import requests
 
 from flask import Flask, render_template, request, redirect, url_for, Response
 from picamera import PiCamera
 
+from PIL import Image
+
+from src.backend.functions.arrange_images import arrange_images
 
 # Verzeichnis für gespeicherte Bilder erstellen, wenn es nicht existiert
 if not os.path.exists('static/images'):
@@ -53,18 +59,23 @@ def take_photo(num_images):
     image_list = []
     for i in range(num_images):
         time.sleep(10)  # Warte 10 Sekunden
-        image_name = f'image_{i + 1}.jpg'
-        image_path = f'static/images/{image_name}'
-        camera.capture(image_path)
-        image_list.append(image_path)
+        stream = io.BytesIO()
+        camera.capture(stream, format='jpeg', use_video_port=True)
+        image_data = stream.getvalue()
+        stream.seek(0)
+        stream.truncate()
+        image_list.append(image_data)
 
-    return render_template('result.html', image_list=image_list)
+    try:
+        pillow_images = [Image.open(io.BytesIO(image)) for image in image_list]
+        result_image: Image.Image = arrange_images(pillow_images)
+        result_image_path = "tempo.jpeg"
+        result_image.save(result_image_path)
 
+    except Exception as e:
+        return render_template('error.html', error_message=str(e))
 
-@app.route('/result')
-def result():
-    # Hier könntest du die Bilder arrangieren und das Ergebnis anzeigen
-    return render_template('result.html')
+    return render_template('result.html', result_image_path=result_image_path)
 
 
 @app.route('/qr_code')

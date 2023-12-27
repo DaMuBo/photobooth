@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Preview</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        #video-preview {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Preview</h1>
+    <img src="{{ url_for('video_feed') }}" id="video-preview">
+
+    <script>
+        const numImages = {{ num_images }};
+
+        function takePhotos() {
+            // Nach 10 Sekunden die Bilder aufnehmen
+            setTimeout(() => {
+                window.location.href = '/take_photo/' + numImages;
+            }, 10000 * numImages); // Hier wird der Gesamtzeitpunkt für alle Fotos berechnet}
+
+        // Starte die Funktion, um die Fotos zu nehmen
+        window.onload = takePhotos;
+    </script>
+</body>
+</html>

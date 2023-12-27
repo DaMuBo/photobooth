@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .button {
+            width: 150px; /* Adjust the width and height for the desired circle size */
+            height: 150px;
+            background-color: #ff4444;
+            color: #fff;
+            font-size: 16px;
+            border: none;
+            border-radius: 50%; /* Make the button a full circle */
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease; /* Add a smooth transition */
+        }
+
+        .button:hover {
+            background-color: #e60000; /* Change color on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <h1>Welcome on Sonja & Daniels Fotobox.</h1>
+            <p> Start your Journey with clicking on the Buzzer !</p>
+        </div>
+        <div class="right">
+            <button class="button" onclick="window.location.href='/select'">Buzzer drücken</button>
+        </div>
+    </div>
+</body>
+</html>

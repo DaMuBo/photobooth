@@ -11,12 +11,11 @@ COPY ./config /app/config
 COPY ./src /app/src
 COPY ./tests /app/tests
 
-# Installiere Poetry und Projekt-Abhängigkeiten
-RUN curl -sSL https://install.python-poetry.org | python3.9 -
-ENV PATH="/root/.local/bin:$PATH"
-RUN poetry install --without dev
-RUN poetry install --with prod
+COPY ./requirements.txt /app/
+
+# Installiere Projekt-Abhängigkeiten # use poetry export --without-hashes --with prod > requirements.txt to create it
+RUN pip3 install -r requirements.txt
 
 # Setze den Ausführungsbefehl beim Containerstart
-CMD ["poetry", "run", "flask", "--app", "src/frontend/flask_app", "run", "--host", "0.0.0.0"]
+CMD ["flask", "--app", "src/frontend/flask_app", "run", "--host", "0.0.0.0"]
 

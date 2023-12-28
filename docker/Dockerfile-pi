@@ -3,7 +3,7 @@ FROM arm32v7/python:3.9
 WORKDIR /app
 
 # Installiere Abhängigkeiten
-RUN apt-get update && apt-get -y install python3-dev libcups2-dev
+RUN apt-get update && apt-get -y install gcc python3-dev libcups2-dev
 
 # Kopiere nur die notwendigen Dateien zuerst, um Docker-Caching zu nutzen
 COPY ./pyproject.toml ./poetry.lock /app/

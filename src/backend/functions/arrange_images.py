@@ -1,14 +1,16 @@
 from typing import List
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 
 
 def arrange_images(images: List[Image.Image],
                    layout_image: Image.Image = None,
+                   layout_text: str = None,
                    background_width: int = 1800,
                    background_height: int = 1200,
                    background_color: tuple = (255, 255, 255),
                    padding: int = 40,
-                   bottom_margin: int = 80) -> Image.Image:
+                   bottom_margin: int = 80,
+                   text_color: tuple = (0, 0, 0)) -> Image.Image:
 
     background = Image.new('RGB', (background_width, background_height), background_color)
 
@@ -51,5 +53,17 @@ def arrange_images(images: List[Image.Image],
             layout_image = layout_image.rotate(90, expand=True)
         layout_image = layout_image.resize((background_width, background_height))
         background.paste(layout_image.convert(mode="RGBA"), mask=layout_image.convert("RGBA").split()[3])
+
+    # place the layout_text
+    if layout_text is not None and num_images == 3:
+        offset_text_x = background_width - (image_width / 1.5) - (padding * 2)
+        offset_text_y = background_height - (image_height / 2) - padding - bottom_margin
+
+        draw = ImageDraw.Draw(background)
+
+        # specify font and color
+        font = ImageFont.load_default(60)  # You may need to provide the path to a font file
+        draw.text((offset_text_x, offset_text_y), layout_text, font=font, fill=text_color)
+
 
     return background

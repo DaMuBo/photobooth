@@ -8,6 +8,7 @@ from PIL import Image
 from src.backend.functions.arrange_images import arrange_images
 from src.backend.functions.upload_image import upload_to_s3
 from src.backend.functions.make_qr_code import make_qr_code
+from src.backend.functions.get_layout import get_layout_random_numeric
 
 
 ROOT = Path(__file__).resolve().parent.parent.parent
@@ -51,13 +52,18 @@ def result(num_images):
 
     # Hier könntest du die Bilder arrangieren und das Ergebnis anzeigen
     result_image_path = Path(__file__).resolve().parent.parent.parent / "samples" / "test_img.jpg"
+
+    # get your layout
+    layout_img = get_layout_random_numeric(ROOT / "samples" / "layouts", num_images)
+    layout_text = os.getenv("LAYOUT_TEXT", None)
     list_image_path = []
     for i in range(num_images):
         list_image_path.append(Image.open(result_image_path))
     result_image = arrange_images(list_image_path,
-                                  background_width=800,
-                                  background_height=600
+                                  layout_image=layout_img,
+                                  layout_text=layout_text
                                   )
+    result_image = result_image.resize((800, 600))
     save_path = static / "test_img_2.jpg"
     result_image.save(str(save_path))
 

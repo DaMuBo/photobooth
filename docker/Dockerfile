@@ -15,7 +15,7 @@ COPY ./tests /app/tests
 # Installiere Poetry und Projekt-Abhängigkeiten
 RUN curl -sSL https://install.python-poetry.org | python3.9 -
 ENV PATH="/root/.local/bin:$PATH"
-RUN poetry install --with prod
+RUN poetry install --without dev
 
 
 # Setze den Ausführungsbefehl beim Containerstart

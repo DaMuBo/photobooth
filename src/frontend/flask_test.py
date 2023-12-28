@@ -48,7 +48,7 @@ def result(num_images):
     save_path = static / "test_img_2.jpg"
     if request.method == 'POST':
         selected_option = str(request.form.get('upload-print'))
-        return redirect(url_for("qr_code", filename=str(save_path)))
+        return redirect(url_for("qr_code"))
 
     # Hier könntest du die Bilder arrangieren und das Ergebnis anzeigen
     result_image_path = Path(__file__).resolve().parent.parent.parent / "samples" / "test_img.jpg"
@@ -70,10 +70,10 @@ def result(num_images):
     return render_template('result.html',  result_image_path=str(save_path))
 
 
-@app.route('/qr_code/<filename>', methods=["GET"])
-def qr_code(filename):
+@app.route('/qr_code', methods=["GET"])
+def qr_code():
     # upload the image to the s3 bucket
-    print(filename)
+    filename = static / "test_img_2.jpg"
     dtobj = datetime.datetime.now()
     image_date = f"{dtobj.year}{dtobj.month}{dtobj.day}_{dtobj.hour}{dtobj.minute}{dtobj.second}"
     new_filename = image_date + "img.jpg"

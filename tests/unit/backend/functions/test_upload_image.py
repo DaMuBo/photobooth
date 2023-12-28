@@ -3,7 +3,7 @@ from unittest.mock import MagicMock, patch
 
 from botocore.exceptions import NoCredentialsError
 
-from src.backend.functions.upload_image import upload_to_s3
+from src.functions.upload_image import upload_to_s3
 
 
 class TestUploadToS3(unittest.TestCase):

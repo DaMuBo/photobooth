@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import MagicMock
 from PIL import Image
-from src.backend.functions.printout import print_image_cups
+from src.functions import print_image_cups
 
 
 class TestPrintImageCups(unittest.TestCase):

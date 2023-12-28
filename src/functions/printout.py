@@ -24,8 +24,12 @@ def print_image_cups(image: Image.Image, printer_name: str = 'your_printer_name'
     image.save(temp_file_path, format='PNG')
     try:
         # Drucke das Bild
-        conn.printFile(printer_name, temp_file_path, "Python Image", {})
-        return True
+        job_id = conn.printFile(printer_name, temp_file_path, "Python Image", {})
+        if job_id is not None:
+            return True
+        else:
+            print("Fehler beim Drucken. Überprüfen Sie den Druckerstatus.")
+            return False
     finally:
         os.remove(temp_file_path)
 

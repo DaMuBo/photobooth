@@ -1,6 +1,6 @@
 import unittest
 from PIL import Image
-from src.backend.functions.arrange_images import arrange_images
+from src.functions.arrange_images import arrange_images
 
 
 class TestArrangeImagesFunction(unittest.TestCase):

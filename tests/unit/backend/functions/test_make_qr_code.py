@@ -1,7 +1,7 @@
 import unittest
 from pathlib import Path
 import base64
-from src.backend.functions.make_qr_code import make_qr_code
+from src.functions.make_qr_code import make_qr_code
 
 
 class TestMakeQRCode(unittest.TestCase):

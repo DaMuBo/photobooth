@@ -13,13 +13,13 @@ COPY ./src /app/src
 COPY ./tests /app/tests
 
 # Installiere Poetry und Projekt-Abhängigkeiten
-# RUN curl -sSL https://install.python-poetry.org | python3.9 -
-# ENV PATH="/root/.local/bin:$PATH"
-# RUN poetry install --with prod
+RUN curl -sSL https://install.python-poetry.org | python3.9 -
+ENV PATH="/root/.local/bin:$PATH"
+RUN poetry install --with prod
 
 
 # Setze den Ausführungsbefehl beim Containerstart
-RUN pip3 install pycups
-CMD ["python3", "src/cup_test.py"]
+# RUN pip3 install pycups
+# CMD ["python3", "src/cup_test.py"]
 
-# CMD ["poetry", "run", "flask", "--app", "src/frontend/flask_test", "run", "--host", "0.0.0.0"]
+CMD ["poetry", "run", "flask", "--app", "src/frontend/flask_test", "run", "--host", "0.0.0.0"]

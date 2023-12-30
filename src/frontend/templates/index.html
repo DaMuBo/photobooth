@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wedding App</title>
+    <title>DaMu Photo App</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <style>
         .button {
@@ -30,8 +30,8 @@
 <body>
     <div class="container">
         <div class="left">
-            <h1>Welcome on Sonjas & Daniels Fotobox.</h1>
-            <p> Start your Journey with clicking on the Buzzer !</p>
+            <h1>{{ welcome_header }}</h1>
+            <p> {{ welcome_text }}</p>
         </div>
         <div class="right">
             <button class="button" onclick="window.location.href='/select'">Buzzer drücken</button>

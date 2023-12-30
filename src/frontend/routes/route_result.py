@@ -26,7 +26,13 @@ def result(num_images):
         return redirect(url_for("qr_code_bp.qr_code"))
 
     layout_img = get_layout_random_numeric(ROOT / "samples" / "layouts", num_images)
+    text_file = ROOT / "samples" / "texts" / "config_text.txt"
     layout_text = os.getenv("LAYOUT_TEXT", None)
+    print(layout_text)
+    if text_file.exists():
+        with open(ROOT / "samples" / "texts" / "layout_text.txt", "r") as file:
+            layout_text = file.read().replace("\\n", "\n")
+            print(layout_text)
     list_image_path = []
     for i in range(num_images):
         list_image_path.append(Image.open(result_image_path))

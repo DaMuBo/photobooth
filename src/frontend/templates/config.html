@@ -6,15 +6,24 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <div>
+    <div class="content">
         <h1>File Upload and Display</h1><br>
         <p> Add Images for nice custom layouts or delete existing ones !</p>
-        <p> Naming: with a number like 1, 2, 3 in the filenames they will be considered for it. with "general" they will be considered for all as a backup</p>
+        <p> Naming: with a number like 1, 2, 3 in the filenames they will be considered for the number of images selected by user <br>
+            with "general" they will be considered for all as a backup</p>
         <div class="container">
             <form action="{{ url_for('config_bp.config') }}" method="post" enctype="multipart/form-data">
-                <label for="photo">Choose a file:</label>
+                <label for="photo">Choose a Layout Image:</label>
                 <input type="file" name="photo" accept=".jpg, .jpeg, .png">
-                <button type="submit">Upload</button>
+                <button type="submit" name="upload_button">Upload</button><br>
+
+                <label for="layout_text">Enter Layout Configuration Text:</label>
+                <input type="text" name="layout_text" id="layout_text" value="{{ layout_cfg_txt }}"><br>
+                <label for="welcome_header">Enter Welcome Header Text:</label>
+                <input type="text" name="welcome_header" id="welcome_header" value="{{ welcome_header_cfg_txt }}"><br>
+                <label for="welcome_text">Enter Welcome Text:</label>
+                <input type="text" name="welcome_text" id="welcome_text" value="{{ welcome_text_cfg_txt }}">
+                <button type="submit" name = "save_text_button">Save Text</button>
             </form>
 
             <ul>

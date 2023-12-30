@@ -11,6 +11,10 @@ from src.frontend.routes.route_config import config_bp
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 static = ROOT / "src" / "frontend" / "static" / "images"
+text_dir = ROOT / "samples" / "texts"
+
+if not text_dir.exists():
+    text_dir.mkdir(exist_ok=True)
 
 
 # Verzeichnis für gespeicherte Bilder erstellen, wenn es nicht existiert
@@ -27,7 +31,20 @@ app.register_blueprint(config_bp)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    welcome_header_path = text_dir / "welcome_header.txt"
+    welcome_text_path = text_dir / "welcome_text.txt"
+    if welcome_header_path.exists():
+        with open(welcome_header_path, "r") as file:
+            welcome_header = file.read().replace("\\n", "\n")
+    else:
+        welcome_header = "Welcome on this Application"
+    if welcome_text_path.exists():
+        with open(welcome_text_path, "r") as file:
+            welcome_text = file.read().replace("\\n", "\n")
+    else:
+        welcome_text = "Start on Buzzer"
+    return render_template('index.html', welcome_header=welcome_header,
+                           welcome_text=welcome_text)
 
 
 @app.route('/preview/<int:num_images>')

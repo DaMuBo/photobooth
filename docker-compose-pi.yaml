@@ -8,5 +8,7 @@ services:
       - .env
     #ports:
     #  - "8080:5000"
+    volumes:
+      - ./uploads:/uploads
     restart: always
     network_mode: host

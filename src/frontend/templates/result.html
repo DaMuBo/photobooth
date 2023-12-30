@@ -55,6 +55,15 @@
             background-color: #2ecc71; /* Dunkleres Grün für Upload/Drucken-Button */
         }
 
+        button.print {
+            background-color: #3498db; /* Farbe für Drucken-Button */
+        }
+
+        button.print:hover {
+            background-color: #7f8c8d; /* Ändern Sie die Hintergrundfarbe beim Hover auf Grau */
+                /* Andere Stile für den Hover-Effekt, falls gewünscht */
+        }
+
         /* Hover-Effekte */
         button:hover {
             background-color: #34495e; /* Dunklere Hintergrundfarbe beim Hover */
@@ -71,8 +80,11 @@
         <div id="buttons-container">
             <form action="/result/5" method="post">
                 <button type="submit" class="upload-print" name="upload-print"
-                        value="test_img_2.jpg">Upload/Drucken</button>
+                        value="test_img_2.jpg">Upload + QR Code</button>
             </form>
+            <a href="{{ url_for('print_bp.printout') }}">
+                <button type="button" class="print">Drucken</button>
+            </a>
             <a href="{{ url_for('index') }}">
                 <button type="button" class="cancel">Abbrechen</button>
             </a>

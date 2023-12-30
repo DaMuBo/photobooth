@@ -6,10 +6,12 @@ from flask import Flask, render_template
 from src.frontend.routes.route_select import select_bp
 from src.frontend.routes.route_result import result_bp
 from src.frontend.routes.route_qr_code import qr_code_bp
-
+from src.frontend.routes.route_print import print_bp
+from src.frontend.routes.route_config import config_bp
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 static = ROOT / "src" / "frontend" / "static" / "images"
+
 
 # Verzeichnis für gespeicherte Bilder erstellen, wenn es nicht existiert
 if not os.path.exists(str(static)):
@@ -19,6 +21,8 @@ app = Flask(__name__,  static_url_path='/static')
 app.register_blueprint(select_bp)
 app.register_blueprint(result_bp)
 app.register_blueprint(qr_code_bp)
+app.register_blueprint(print_bp)
+app.register_blueprint(config_bp)
 
 
 @app.route('/')

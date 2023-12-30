@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Config Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div>
+        <h1>File Upload and Display</h1><br>
+        <p> Add Images for nice custom layouts or delete existing ones !</p>
+        <p> Naming: with a number like 1, 2, 3 in the filenames they will be considered for it. with "general" they will be considered for all as a backup</p>
+        <div class="container">
+            <form action="{{ url_for('config_bp.config') }}" method="post" enctype="multipart/form-data">
+                <label for="photo">Choose a file:</label>
+                <input type="file" name="photo" accept=".jpg, .jpeg, .png">
+                <button type="submit">Upload</button>
+            </form>
+
+            <ul>
+                {% for file in files %}
+                    <li>
+                        {{ file }}
+                        <a href="{{ url_for('config_bp.delete_file', filename=file) }}">Delete</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

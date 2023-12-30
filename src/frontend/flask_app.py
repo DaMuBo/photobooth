@@ -1,28 +1,29 @@
-import time
 import os
-import io
+from pathlib import Path
 
-from flask import Flask, render_template, request, redirect, url_for, Response
+from flask import Flask, render_template
+
+from src.frontend.routes.route_select import select_bp
+from src.frontend.routes.route_result import result_bp
+from src.frontend.routes.route_qr_code import qr_code_bp
+
+
+ROOT = Path(__file__).resolve().parent.parent.parent
+static = ROOT / "src" / "frontend" / "static" / "images"
 
 # Verzeichnis für gespeicherte Bilder erstellen, wenn es nicht existiert
-if not os.path.exists('static/images'):
-    os.makedirs('static/images')
+if not os.path.exists(str(static)):
+    os.makedirs(str(static))
+
+UPLOAD_FOLDER = '/path/to/the/uploads'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 app = Flask(__name__,  static_url_path='/static')
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.register_blueprint(select_bp)
+app.register_blueprint(result_bp)
+app.register_blueprint(qr_code_bp)
 
-
-def generate():
-    stream = io.BytesIO()
-    for _ in camera.capture_continuous(stream, format='jpeg', use_video_port=True):
-        stream.seek(0)
-        yield b'--frame\r\nContent-Type: image/jpeg\r\n\r\n' + stream.read() + b'\r\n'
-        stream.seek(0)
-        stream.truncate()
-
-
-@app.route('/video_feed')
-def video_feed():
-    return Response(generate(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 @app.route('/')
@@ -30,22 +31,9 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/select', methods=['GET', 'POST'])
-def select():
-    # Hier könntest du die Auswahl der Anzahl der Bilder implementieren
-    if request.method == 'POST':
-        selected_option = int(request.form.get('selected_option'))
-        # Hier könnten Sie die Logik implementieren, um die Auswahl zu verarbeiten
-        # und die erforderlichen Daten für die Preview-Seite vorzubereiten.
-        return redirect(url_for('preview', num_images=selected_option))
-    return render_template('select.html')
-
-
-
-@app.route('/qr_code')
-def qr_code():
-    # Hier könntest du den QR-Code anzeigen
-    return render_template('qr_code.html')
+@app.route('/preview/<int:num_images>')
+def preview(num_images):
+    return render_template('preview.html', num_images=num_images)
 
 
 if __name__ == '__main__':

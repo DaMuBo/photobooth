@@ -6,14 +6,14 @@ import time
 import io
 
 from flask import Blueprint, render_template
-from picamera import PiCamera
+from picamera2 import Picamera2
 
 from PIL import Image
 
 from src.functions.arrange_images import arrange_images
 
 preview_bp = Blueprint('preview_bp', __name__)
-camera = PiCamera()
+camera = Picamera2()
 
 
 @preview_bp.route('/preview/<int:num_images>')

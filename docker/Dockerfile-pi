@@ -4,6 +4,7 @@ WORKDIR /app
 
 # Installiere Abhängigkeiten
 RUN apt-get update && apt-get -y install gcc python3-dev libcups2-dev
+RUN apt-get -y install libcamera
 
 # Kopiere nur die notwendigen Dateien zuerst, um Docker-Caching zu nutzen
 COPY ./pyproject.toml ./poetry.lock /app/

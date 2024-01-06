@@ -11,4 +11,5 @@ services:
     volumes:
       - ./uploads:/uploads
     restart: always
+    privileged: true
     network_mode: host

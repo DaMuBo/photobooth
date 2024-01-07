@@ -1,17 +1,14 @@
 version: '3.3'
 services:
-  backend-app:
+  test-app:
     build:
       context: .
-      dockerfile: docker/Dockerfile
+      dockerfile: docker/Dockerfile-libcam
     env_file:
       - .env
-    ports:
-      - "8080:5000"
+    #ports:
+    #  - "8080:5000"
     volumes:
       - ./uploads:/uploads
-    networks:
-      - your-network
-
-networks:
-  your-network:
+    privileged: true
+    network_mode: host

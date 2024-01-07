@@ -1,0 +1,22 @@
+FROM python:3.9.18
+
+WORKDIR /app
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && \
+    apt-get install -y git && \
+    pip3 install pyyaml ninja meson jinja2 ply && \
+    apt-get install -y cmake libgnutls28-dev openssl libboost-dev
+
+RUN git clone https://git.libcamera.org/libcamera/libcamera.git && \
+    cd libcamera && \
+    meson setup build --buildtype=release -Dv4l2=true -Ddocumentation=disabled && \
+    ninja -C build && \
+    ninja -C build install
+
+RUN pip3 install picamera2
+
+COPY ./hello-world.py /app/hello-world.py
+
+CMD ["python3", "hello-world.py"]

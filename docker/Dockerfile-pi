@@ -6,9 +6,9 @@ WORKDIR /app
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y python3 python3-pip python3-picamera2 gcc python3-dev libcap-dev \
-    pkg-config libavformat-dev libavcodec-dev \
-    libavdevice-dev libavutil-dev libavfilter-dev \
-    libswscale-dev libswresample-dev libcups2-dev --no-install-recommends
+    pkg-config libcups2-dev #libavformat-dev libavcodec-dev \
+    # libavdevice-dev libavutil-dev libavfilter-dev \
+    # libswscale-dev libswresample-dev libcups2-dev
     # apt-get clean && \
     # rm -rf /var/lib/apt/lists/*
 

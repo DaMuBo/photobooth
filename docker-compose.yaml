@@ -3,12 +3,13 @@ services:
   test-app:
     build:
       context: .
-      dockerfile: docker/Dockerfile-libcam
+      dockerfile: docker/Dockerfile-pi
     env_file:
       - .env
     #ports:
     #  - "8080:5000"
     volumes:
+      - /run/udev:/run/udev
       - ./uploads:/uploads
     privileged: true
     network_mode: host

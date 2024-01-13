@@ -3,11 +3,11 @@ FROM navikey/raspbian-bullseye:latest
 WORKDIR /app
 
 # Installiere Abhängigkeiten
-RUN apt-get update && apt-get -y upgrade
-RUN apt-get install -y python3 python3-pip
-RUN pip install --upgrade pip
-RUN apt install -y python3-picamera2 --no-install-recommends
-RUN apt-get -y install gcc python3-dev libcups2-dev
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y python3 python3-pip python3-picamera2 gcc python3-dev libcups2-dev --no-install-recommends && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* \
 
 # Kopiere nur die notwendigen Dateien zuerst, um Docker-Caching zu nutzen
 COPY ./config /app/config
@@ -18,7 +18,10 @@ COPY ./tests /app/tests
 COPY ./requirements.txt /app/
 
 # Installiere Projekt-Abhängigkeiten # use poetry export --without-hashes --with prod > requirements.txt to create it
-RUN pip install -r requirements.txt
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt
+
+LABEL maintainer="Daniel Mueller <daniel.mueller@damu-analytics.com>"
 
 # Setze den Ausführungsbefehl beim Containerstart
 CMD ["flask", "--app", "src/frontend/flask_test", "run", "--host", "0.0.0.0"]

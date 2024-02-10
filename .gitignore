@@ -6,3 +6,4 @@ venv
 workspace.xml
 uploads
 
+/temp/

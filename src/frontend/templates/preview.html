@@ -5,28 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Preview</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <style>
-        #video-preview {
-            width: 100%;
-        }
-    </style>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
 <h1>Live Video Stream</h1>
-    <img id="capturedImage" alt="Captured Image">
-    <video id="videoFeed" width="640" height="480" autoplay playsinline></video>
+    <h1>Webcam Stream</h1>
+    <p>Wert von num: {{ num_images }}</p>
+    <video id="video" width="640" height="480" autoplay></video>
+    <div id="countdown">5</div>
+    <img id="capturedImage" style="display: none;">
 
     <script>
-        const video = document.getElementById('videoFeed');
-        const capturedImage = document.getElementById('capturedImage');
-
-        // Update the video source to the Flask video feed endpoint
-        video.src = "/video_feed";
-
-        // Periodically update the captured image
-        setInterval(() => {
-            capturedImage.src = "/captured_image.jpg?" + new Date().getTime();
-        }, 10000); // Update every 10 seconds
+        var numInJavaScript = {{ num_images }};
+        var originNum = {{ num_images }};
     </script>
+
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>

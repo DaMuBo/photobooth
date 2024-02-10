@@ -1,19 +1,13 @@
 """
 The route for making the picamera stuff -> still open to do
 """
-
-import time
-import io
-
-from flask import Blueprint, render_template
-from picamera2 import Picamera2
-
-from PIL import Image
-
-from src.functions.arrange_images import arrange_images
+import pathlib
+import base64
+from flask import Blueprint, render_template, redirect, url_for, request
 
 preview_bp = Blueprint('preview_bp', __name__)
-camera = Picamera2()
+
+ROOT = pathlib.Path(__file__).resolve().parent.parent.parent.parent
 
 
 @preview_bp.route('/preview/<int:num_images>')
@@ -21,25 +15,26 @@ def preview(num_images):
     return render_template('preview.html', num_images=num_images)
 
 
-@preview_bp.route('/take_photo/<int:num_images>')
-def take_photo(num_images):
-    image_list = []
-    for i in range(num_images):
-        time.sleep(10)  # Warte 10 Sekunden
-        stream = io.BytesIO()
-        camera.capture(stream, format='jpeg', use_video_port=True)
-        image_data = stream.getvalue()
-        stream.seek(0)
-        stream.truncate()
-        image_list.append(image_data)
+@preview_bp.route('/save_images', methods=['POST'])
+def save_images():
+    temp_path = ROOT / "temp"
+    temp_path.mkdir(exist_ok=True)
+    if 'image' in request.form:
+        image_data = request.form['image']
+        number = request.form['numInJavaScript']
 
-    try:
-        pillow_images = [Image.open(io.BytesIO(image)) for image in image_list]
-        result_image: Image.Image = arrange_images(pillow_images)
-        result_image_path = "tempo.jpeg"
-        result_image.save(result_image_path)
+        save_image(image_data, int(number))
 
-    except Exception as e:
-        return render_template('error.html', error_message=str(e))
+    return redirect(url_for('preview_bp.nachste_seite',))
 
-    return render_template('result.html', result_image_path=result_image_path)
+
+@preview_bp.route('/nachste_seite')
+def nachste_seite():
+    return redirect(url_for("result_bp.result", num_images=4))
+
+
+def save_image(image_data, number: int):
+    image_binary = base64.b64decode(image_data.split(',')[1])
+    filename = ROOT / "temp" / f"image_{number}.png"
+    with open(filename, 'wb') as f:
+        f.write(image_binary)

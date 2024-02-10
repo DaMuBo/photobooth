@@ -17,10 +17,7 @@ result_bp = Blueprint('result_bp', __name__)
 
 @result_bp.route('/result/<int:num_images>', methods=['GET', 'POST'])
 def result(num_images):
-    # result_image_path = ROOT / "samples" / "test_img.jpg"
     if request.method == 'POST':
-        # image = Image.open(result_image_path)
-        # print_image_cups(image, os.getenv("PRINTER_NAME"))
         return redirect(url_for("qr_code_bp.qr_code"))
 
     layout_img = get_layout_random_numeric(ROOT / "samples" / "layouts", num_images)

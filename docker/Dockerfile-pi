@@ -28,4 +28,4 @@ RUN pip install --upgrade pip && \
 LABEL maintainer="Daniel Mueller <daniel.mueller@damu-analytics.com>"
 
 # Setze den Ausführungsbefehl beim Containerstart
-CMD ["flask", "--app", "src/frontend/flask_test", "run", "--host", "0.0.0.0"]
+CMD ["flask", "--app", "src/frontend/flask_app", "run", "--host", "0.0.0.0"]

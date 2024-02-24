@@ -11,5 +11,7 @@ services:
     volumes:
       - /run/udev:/run/udev
       - ./uploads:/uploads
+    devices:
+      - /dev/vchiq:/dev/vchiq
     privileged: true
     network_mode: host

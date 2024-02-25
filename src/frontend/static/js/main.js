@@ -3,7 +3,6 @@ $(document).ready(function() {
     const countdown = document.getElementById('countdown');
     const capturedImage = document.getElementById('capturedImage');
     let counter;
-
     function startCountdown() {
         if (counter > 0) {
             countdown.innerText = counter;
@@ -14,7 +13,6 @@ $(document).ready(function() {
             captureImage();
         }
     }
-
     function captureImage() {
         const canvas = document.createElement('canvas');
         canvas.width = video.videoWidth;
@@ -26,7 +24,6 @@ $(document).ready(function() {
         capturedImage.style.display = 'block';
 
         const imageData = capturedImage.src;
-        // Hier können Sie die Bilder weiterverarbeiten, z.B. auf dem Server speichern
         $.ajax({
             url: '/save_images',
             type: 'POST',
@@ -37,17 +34,18 @@ $(document).ready(function() {
                 console.error('Error sending images to server:', error);
             }
         });
-        // Nächster Durchlauf nach einer Pause von z.B. 2 Sekunden
         setTimeout(startNextIteration, 2000);
     }
 
     function startNextIteration() {
         if (numInJavaScript > 0) {
             console.log(numInJavaScript)
+            if ('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices) {
+            console.log("Let's get this party started")
+            }
             navigator.mediaDevices.getUserMedia({ video: true })
                 .then((stream) => {
                     video.srcObject = stream;
-                    // Initialen Counter-Wert setzen (z.B., 5 Sekunden)
                     counter = 5;
                     startCountdown();
                 })

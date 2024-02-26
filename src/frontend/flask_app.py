@@ -3,12 +3,16 @@ from pathlib import Path
 
 from flask import Flask, render_template
 
+from dotenv import load_dotenv
+
 from src.frontend.routes.route_select import select_bp
 from src.frontend.routes.route_result import result_bp
 from src.frontend.routes.route_qr_code import qr_code_bp
 from src.frontend.routes.route_print import print_bp
 from src.frontend.routes.route_config import config_bp
 from src.frontend.routes.route_preview import preview_bp
+
+load_dotenv()
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 static = ROOT / "src" / "frontend" / "static" / "images"

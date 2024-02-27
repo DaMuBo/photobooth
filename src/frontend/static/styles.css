@@ -1,33 +1,51 @@
 /* static/styles.css */
 
 body {
-   font-family: 'Arial', sans-serif;
-   background-color: #ffe6e6; /* Zartes Rosa für eine romantische Atmosphäre */
-   margin: 0;
-   padding: 0;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   height: 100vh;
-
+  font-family: Arial, sans-serif;
+  background-color: #ffe6e6; /* Light pink for a romantic atmosphere */
+  margin: 0;
+  padding: 0;
+  min-height: 100vh; /* Ensure fallback for non-supporting browsers */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .container {
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
-   width: 80%;
-   background-color: #ffffff; /* Weiß für einen sauberen Look */
-   padding: 20px;
-   border-radius: 10px;
-   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  background-color: #ffffff; /* White for a clean look */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
 .left {
-   width: 50%;
-   color: #cc3366; /* Weinrote Schriftfarbe für einen Hauch von Eleganz */
-
+  width: 50%;
+  color: #cc3366; /* Maroon for a touch of elegance */
+}
 
 .right {
-   width: 50%;
-   display: flex;
-   justify-content: flex-end;
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#video {
+    height: 100%; /* Fill the container */
+    margin: auto
+}
+
+#countdown {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the countdown */
+    color: white;
+    font-size: 48px; /* Adjust font size as needed */
+    text-shadow: 0 0 5px black; /* Add a slight shadow */
+    opacity: 0.7; /* Set semi-transparency */
+
+}

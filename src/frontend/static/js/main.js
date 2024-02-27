@@ -20,10 +20,7 @@ $(document).ready(function() {
         const context = canvas.getContext('2d');
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-        capturedImage.src = canvas.toDataURL('image/png');
-        capturedImage.style.display = 'block';
-
-        const imageData = capturedImage.src;
+        const imageData = canvas.toDataURL('image/png');
         $.ajax({
             url: '/save_images',
             type: 'POST',

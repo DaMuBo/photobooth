@@ -30,7 +30,8 @@ def save_images():
 
 @preview_bp.route('/nachste_seite')
 def nachste_seite():
-    return redirect(url_for("result_bp.result", num_images=4))
+    return "hi"
+    # return redirect(url_for("result_bp.result", num_images=4))
 
 
 def save_image(image_data, number: int):

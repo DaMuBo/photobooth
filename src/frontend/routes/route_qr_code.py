@@ -2,10 +2,13 @@ import os
 from pathlib import Path
 import datetime
 
+from dotenv import load_dotenv
+
 from flask import render_template, Blueprint
 from src.functions.upload_image import upload_to_s3
 from src.functions.make_qr_code import make_qr_code
 
+load_dotenv()
 
 ROOT = Path(__file__).resolve().parent.parent.parent.parent
 static = ROOT / "src" / "frontend" / "static" / "images"

@@ -15,4 +15,4 @@ def printout():
     print("printprintprint")
 
     return render_template("error.html")
-    return redirect(request.referrer or url_for('index'))
+    # return redirect(request.referrer or url_for('index'))

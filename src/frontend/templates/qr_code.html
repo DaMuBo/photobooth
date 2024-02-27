@@ -66,7 +66,7 @@
 <body>
     <div id="container-local">
         <div id="image-container">
-            <img src="{{ qr_code_data_uri }}" alt="Result Image">
+            <img id="qr_code_img" src="{{ qr_code_data_uri }}" alt="Result Image">
         </div>
         <div id="buttons-container">
             <a href="{{ url_for('index') }}">

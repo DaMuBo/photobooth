@@ -42,7 +42,8 @@ sudo apt-get install libgstreamer1.0-dev \
    gstreamer1.0-plugins-ugly \
    gstreamer1.0-tools \
    gstreamer1.0-gl \
-   gstreamer1.0-gtk3
+   gstreamer1.0-gtk3 \
+   gstreamer1.0-libcamera
 ````
 install loopback device: `sudo apt install v4l2loopback-dkms`
 

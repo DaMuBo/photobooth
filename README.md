@@ -80,7 +80,7 @@ options v4l2loopback video_nr=1 exclusive_caps=1
 ````commandline
 [Unit]
 Description=gst-pipeline service
-Before=lightdm.service    # adjust accordingly
+Before=lightdm.service
 
 [Service]
 # Ensure the loopback device has been created by the v4l2loopback
@@ -88,15 +88,14 @@ Before=lightdm.service    # adjust accordingly
 ExecStartPre=sh -c 'while ! test -c /dev/video1; do sleep 0.1; done'
 ExecStart=gst-launch-1.0 -vvv \
  libcamerasrc ! \
- capsfilter caps=video/x-raw,width=2304,height=1296,format=NV12 ! \
- v4l2convert ! \
+ capsfilter caps=video/x-raw,width=2304,height=1296,format=YUY2 ! \
+ videoconvert ! \
  queue ! \
- v4l2sink device=/dev/video1
  v4l2sink device=/dev/video1
 Restart=always
 
 [Install]
-RequiredBy=lightdm.service      # adjust accordingly
+RequiredBy=lightdm.service
 ````
 7. start and check the status of your service
 ````commandline
@@ -107,4 +106,33 @@ sudo systemctl status gst-pipeline.service
 # if needed stop your service
 sudo systemctl stop gst-pipeline.service
 ````
-# Run Service
+# Run Application
+For running the application you can use `flask --app src/frontend/flask_app.py run` for running the application from projects root
+
+setup the service for starting on boot you also can use an own systemd service. Please make shure to correct the paths to your project root for a functioning service !
+```
+[Unit]
+Description=Photobooth Service
+After=network.target
+
+[Service]
+Environment="XDG_RUNTIME_DIR=/run/user/$(id -u)"
+User=pifotoadmin
+WorkingDirectory=/home/pifotoadmin/projects/photobooth
+Environment="DISPLAY=:0"
+ExecStart=/bin/bash -c 'source /home/pifotoadmin/projects/photobooth/.venv/bin/activate && exec flask --app src/frontend/flask_app.py run'
+ExecStartPost=/bin/bash -c 'sleep 5 && /usr/bin/chromium-browser --kiosk http://localhost:5000'
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+```
+
+After this add some environment variables via .env file with the following infos:
+1. AWS_ACCESS_KEY_ID
+2. AWS_SECRET_ACCESS_KEY
+3. AWS_DEFAULT_REGION
+4. S3_BUCKET_NAME
+5. LAYOUT_TEXT
+6. PRINTER_NAME

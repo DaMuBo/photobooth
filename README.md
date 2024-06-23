@@ -47,6 +47,11 @@ sudo apt-get install libgstreamer1.0-dev \
 ````
 install loopback device: `sudo apt install v4l2loopback-dkms`
 
+Your gonna need to install the following dependencies for installing the python project without errors:
+1. libcairo2-dev pkg-config python3-dev libgirepository1.0-dev
+```
+sudo apt install libcairo2-dev pkg-config python3-dev libgirepository1.0-dev
+```
 
 ## Install Project
 For installing the Project on your raspberry you will need to install all requirements
@@ -70,42 +75,14 @@ https://forums.raspberrypi.com/viewtopic.php?t=351986
 cd /etc
 sudo nano modules
 ````
-3. open /etc/modprobe.d/v4l2loopback.conf and write the options where to write the stream.
+3. open /etc/modprobe.d/v4l2loopback.conf and write the options where to write the stream. The default is video_nr=1 In the src/frontend/routes/route_gst_pipes.py the gstreamer pipeline is configured and defaults to video1 if you have multiple cameras you have to change it
+
 ```
 options v4l2loopback video_nr=1 exclusive_caps=1
 ```
 4. reboot `sudo reboot`
 5. check for available device /dev/video1 with `sudo v4l2-ctl --list-devices`
-6. install a service for automatically run it in the background. for example use systemd unit. For example name it "/etc/systemd/system/gst-pipeline.service"
-````commandline
-[Unit]
-Description=gst-pipeline service
-Before=lightdm.service
 
-[Service]
-# Ensure the loopback device has been created by the v4l2loopback
-# driver before starting the pipeline.
-ExecStartPre=sh -c 'while ! test -c /dev/video1; do sleep 0.1; done'
-ExecStart=gst-launch-1.0 -vvv \
- libcamerasrc ! \
- capsfilter caps=video/x-raw,width=2304,height=1296,format=YUY2 ! \
- videoconvert ! \
- queue ! \
- v4l2sink device=/dev/video1
-Restart=always
-
-[Install]
-RequiredBy=lightdm.service
-````
-7. start and check the status of your service
-````commandline
-sudo systemctl daemon-reload
-sudo systemctl start gst-pipeline.service
-sudo systemctl status gst-pipeline.service
-
-# if needed stop your service
-sudo systemctl stop gst-pipeline.service
-````
 # Run Application
 For running the application you can use `flask --app src/frontend/flask_app.py run` for running the application from projects root
 
@@ -136,3 +113,5 @@ After this add some environment variables via .env file with the following infos
 4. S3_BUCKET_NAME
 5. LAYOUT_TEXT
 6. PRINTER_NAME
+
+Congratulations your Photobooth Application is up and running !

@@ -3,6 +3,8 @@
 import gi
 from gi.repository import Gst
 from flask import Blueprint, jsonify
+import time
+
 
 gi.require_version('Gst', '1.0')
 
@@ -26,6 +28,7 @@ def start_pipeline():
 
     pipeline = Gst.parse_launch(pipeline_description)
     pipeline.set_state(Gst.State.PLAYING)
+    time.sleep(2)
 
     return jsonify({"status": "Pipeline started"}), 200
 

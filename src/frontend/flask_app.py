@@ -11,6 +11,7 @@ from src.frontend.routes.route_qr_code import qr_code_bp
 from src.frontend.routes.route_print import print_bp
 from src.frontend.routes.route_config import config_bp
 from src.frontend.routes.route_preview import preview_bp
+from src.frontend.routes.route_gst_pipes import gst_pipe_bp
 
 load_dotenv()
 
@@ -33,6 +34,7 @@ app.register_blueprint(qr_code_bp)
 app.register_blueprint(print_bp)
 app.register_blueprint(config_bp)
 app.register_blueprint(preview_bp)
+app.register_blueprint(gst_pipe_bp)
 
 
 @app.route('/')

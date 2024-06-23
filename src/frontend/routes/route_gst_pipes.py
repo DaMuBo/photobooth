@@ -22,7 +22,7 @@ def start_pipeline():
         return jsonify({"error": "Pipeline is already running"}), 400
 
     # Beispiel-Pipeline (hier muss deine spezifische Pipeline-Konfiguration rein)
-    pipeline_description = "videotestsrc ! autovideosink"
+    pipeline_description = "libcamerasrc ! video/x-raw,format=YUY2 ! queue ! videoconvert ! queue ! v4l2sink device=/dev/video1"
 
     pipeline = Gst.parse_launch(pipeline_description)
     pipeline.set_state(Gst.State.PLAYING)

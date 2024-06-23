@@ -2,8 +2,11 @@ import os
 from pathlib import Path
 
 
-from flask import render_template, request, redirect, url_for, Blueprint
+from flask import render_template, request, redirect, url_for, Blueprint, jsonify
 from PIL import Image
+
+from src.frontend.routes import route_gst_pipes
+
 from src.functions.arrange_images import arrange_images
 from src.functions.get_layout import get_layout_random_numeric
 # from src.functions.printout import print_image_cups # only for test on linux
@@ -19,6 +22,10 @@ result_bp = Blueprint('result_bp', __name__)
 def result(num_images):
     if request.method == 'POST':
         return redirect(url_for("qr_code_bp.qr_code"))
+    
+    response, status_code = route_gst_pipes.stop_pipeline()
+    if status_code != 200:
+        return jsonify(response), status_code
 
     layout_img = get_layout_random_numeric(ROOT / "samples" / "layouts", num_images)
     text_file = ROOT / "samples" / "texts" / "config_text.txt"

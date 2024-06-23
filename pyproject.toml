@@ -29,7 +29,7 @@ optional = true
 
 [tool.poetry.group.prod.dependencies]
 pycups = "^2.0.1"
-picamera2 = "^0.3.16"
+pygobject = "^3.48.2"
 
 [build-system]
 requires = ["poetry-core"]

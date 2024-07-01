@@ -1,0 +1,19 @@
+FROM arm64v8/python:3.11-bookworm
+# FROM debian:bookworm
+
+WORKDIR /app
+
+# Installiere grundlegende Abhängigkeiten
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y software-properties-common curl gnupg && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+# Füge das Raspberry Pi Repository hinzu
+RUN echo "deb http://archive.raspberrypi.org/debian/ bookworm main" | tee /etc/apt/sources.list.d/raspi.list && \
+    curl -fsSL https://archive.raspberrypi.org/debian/raspberrypi.gpg.key | apt-key add - && \
+    apt update
+RUN apt install -y libraspberrypi-bin python3-dev git build-essential kmod libcamera-apps libcamera-dev libcamera-v4l2 v4l-utils libv4l-dev && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+    
+ENV UDEV=1
+
+CMD ["libcamera-hello"]

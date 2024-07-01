@@ -6,7 +6,7 @@ authors = ["DaMuBo <daniel910527@googlemail.com>"]
 packages = [{include = "src", from = "."}]
 
 [tool.poetry.scripts]
-run_backend = "src.frontend.flask_app:app"
+app = "src.frontend.flask_app:main"
 
 [tool.poetry.dependencies]
 python = "^3.9"

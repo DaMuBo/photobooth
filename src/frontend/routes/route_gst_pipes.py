@@ -1,6 +1,9 @@
 """Start and Stop gst pipeline."""
 
 import gi
+
+gi.require_version('Gst', '1.0')
+
 from gi.repository import Gst
 from flask import Blueprint, jsonify
 import time

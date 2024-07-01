@@ -115,3 +115,10 @@ After this add some environment variables via .env file with the following infos
 6. PRINTER_NAME
 
 Congratulations your Photobooth Application is up and running !
+
+build from scratch:
+# Klone und baue libcamera
+RUN git clone https://github.com/raspberrypi/libcamera.git /app/libcamera && \
+    cd /app/libcamera && \
+    meson setup build --buildtype=release -Dpipelines=rpi/vc4,rpi/pisp -Dipas=rpi/vc4,rpi/pisp -Dv4l2=true -Dgstreamer=enabled -Dtest=false -Dlc-compliance=disabled -Dcam=disabled -Dqcam=disabled -Ddocumentation=disabled -Dpycamera=enabled && \
+    ninja -C build install

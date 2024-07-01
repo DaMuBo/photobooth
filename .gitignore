@@ -4,6 +4,12 @@ venv
 .venv
 .env
 workspace.xml
+*.pyc
+
 uploads
 
 /temp/
+
+
+# data
+./src/frontend/static/images/*

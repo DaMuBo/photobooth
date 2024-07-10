@@ -5,14 +5,15 @@ import gi
 gi.require_version('Gst', '1.0')
 
 from gi.repository import Gst
+import flask
 from flask import Blueprint, jsonify
 import time
 
+app = flask.Flask(__name__)
 
 gi.require_version('Gst', '1.0')
 
 gst_pipe_bp = Blueprint('gst_pipe_bp', __name__)
-
 
 # Initialisiere GStreamer
 Gst.init(None)
@@ -20,7 +21,7 @@ Gst.init(None)
 # Globale Variable für die Pipeline
 pipeline = None
 
-@gst_pipe_bp.route('/start_pipeline', methods=['POST'])
+@app.route('/start_pipeline', methods=['POST'])
 def start_pipeline():
     global pipeline
     if pipeline is not None:
@@ -45,3 +46,6 @@ def stop_pipeline():
     pipeline = None
 
     return jsonify({"status": "Pipeline stopped"}), 200
+
+if __name__ == '__main__':
+	start_pipeline()

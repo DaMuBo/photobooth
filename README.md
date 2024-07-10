@@ -53,6 +53,36 @@ Your gonna need to install the following dependencies for installing the python 
 sudo apt install libcairo2-dev pkg-config python3-dev libgirepository1.0-dev
 ```
 
+You will also need  ```sudo apt-get install libcups2-dev cups``` for the printer and if you are using a canon selphy cp1500 like me you should install the gutenprint driver from source (apt version up to now doesn*t have drivers for cp1500 but the source has..)
+
+```
+# remove old versions
+sudo apt remove *gutenprint* ipp-usb
+
+# load actual version of gutenprint from source
+GUTENPRINT_VER=5.3.4-2023-12-06T01-00-2ef8ba24
+curl -o gutenprint-${GUTENPRINT_VER}.tar.xz "https://master.dl.sourceforge.net/project/gimp-print/snapshots/gutenprint-${GUTENPRINT_VER}.tar.xz?viasf=1"
+
+# unpack it
+tar -xJf gutenprint-${GUTENPRINT_VER}.tar.xz
+
+# compile it 
+cd gutenprint-${GUTENPRINT_VER}
+./configure --without-doc
+make -j4
+sudo make install
+
+#  update configs and restart cups
+sudo cups-genppdupdate
+sudo service cups restart
+
+# add paths to search configs
+echo "/usr/local/lib" | sudo tee /etc/ld.so.conf.d/usr-local.conf
+sudo ldconfig
+
+```
+
+
 ## Install Project
 For installing the Project on your raspberry you will need to install all requirements
 you can use a virtual environment for isolating the packages. But you will probably not use the Raspi  for other stuff. So you can directly install it.

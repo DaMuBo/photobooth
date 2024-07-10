@@ -12,7 +12,8 @@ def select():
         # start the gst pipeline here
         response, status_code = route_gst_pipes.start_pipeline()
         if status_code != 200:
-            return jsonify(response), status_code
+            route_gst_pipes.stop_pipeline()
+            route_gst_pipes.start_pipeline()
 
         return redirect(url_for("preview_bp.preview", num_images=selected_option))
     return render_template('select.html')

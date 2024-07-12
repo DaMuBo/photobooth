@@ -5,6 +5,7 @@ venv
 .env
 workspace.xml
 *.pyc
+.ruff_cache
 
 uploads
 
@@ -13,6 +14,7 @@ uploads
 
 # data
 ./src/frontend/static/images/*
+*.jpg
 
 # unnecessary stuff
 gutenprint-5.3.4-2023-12-06T01-00-2ef8ba24

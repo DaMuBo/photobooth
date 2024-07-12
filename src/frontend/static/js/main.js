@@ -31,7 +31,7 @@ $(document).ready(function() {
                 console.error('Error sending images to server:', error);
             }
         });
-        setTimeout(startNextIteration, 2000);
+        setTimeout(startNextIteration, 1000);
     }
 
     function startNextIteration() {

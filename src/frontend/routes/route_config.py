@@ -36,13 +36,13 @@ def config():
                     photo.save(str(layout_dir / photo.filename))
         elif "save_text_button" in request.form:
             layout_text = request.form.get("layout_text")
-            with open(layout_text_path, "w") as text_file:
+            with open(layout_text_path, "w", encoding="utf-8") as text_file:
                 text_file.write(layout_text)
             layout_text = request.form.get("welcome_header")
-            with open(welcome_header_path, "w") as text_file:
+            with open(welcome_header_path, "w", encoding="utf-8") as text_file:
                 text_file.write(layout_text)
             layout_text = request.form.get("welcome_text")
-            with open(welcome_text_path, "w") as text_file:
+            with open(welcome_text_path, "w", encoding="utf-8") as text_file:
                 text_file.write(layout_text)
 
     # Anzeige der hochgeladenen Dateien

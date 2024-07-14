@@ -6,7 +6,9 @@ from src.functions import arrange_images
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent.parent
 
+
 def integrate_arrange_images():
+    """Test the arrange images function. - just a dummy."""
     images = []
     for i in range(4):
         # load the image 1
@@ -18,5 +20,6 @@ def integrate_arrange_images():
         # save created image
         result.save(str(ROOT / f"result_image_{i}.png"))
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     integrate_arrange_images()

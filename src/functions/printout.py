@@ -17,5 +17,4 @@ def print_image_cups(image_path: pathlib.Path, printer_name: str = "your_printer
     job_id = conn.printFile(printer_name, str(image_path), "Python Image", {})
     if job_id is not None:
         return 200
-    else:
-        return 500
+    return 500

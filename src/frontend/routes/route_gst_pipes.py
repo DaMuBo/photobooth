@@ -1,17 +1,17 @@
 """Start and Stop gst pipeline."""
 
+import time
+
+import flask
+from flask import Blueprint, jsonify
 import gi
 
 gi.require_version("Gst", "1.0")
 
-from gi.repository import Gst
-import flask
-from flask import Blueprint, jsonify
-import time
+from gi.repository import Gst  # pylint: disable=wrong-import-position
+
 
 app = flask.Flask(__name__)
-
-gi.require_version("Gst", "1.0")
 
 gst_pipe_bp = Blueprint("gst_pipe_bp", __name__)
 

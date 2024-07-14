@@ -33,7 +33,7 @@ def result(num_images):
     text_file = ROOT / "samples" / "texts" / "config_text.txt"
     layout_text = os.getenv("LAYOUT_TEXT", None)
     if text_file.exists():
-        with open(ROOT / "samples" / "texts" / "layout_text.txt", "r") as file:
+        with open(ROOT / "samples" / "texts" / "layout_text.txt", "r", encoding="utf-8") as file:
             layout_text = file.read().replace("\\n", "\n")
     list_image_path = []
     for i in range(num_images):

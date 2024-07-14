@@ -2,7 +2,7 @@ from typing import List, Optional, Tuple
 from PIL import Image, ImageDraw, ImageFont
 
 CONST_IMAGE_THREE = 3
-
+CONST_SPECIAL_HANDLING_TWO = 2
 MAX_IMAGE_NUMBER = 4
 
 
@@ -55,15 +55,15 @@ def arrange_images(
         # Calculate resized image size and offsets
         image_width = (background_width - (cols + 1) * padding) // cols
         image_height = (background_height - (rows + 1) * padding - bottom_margin) // rows
-        
-        # if we have 2 images than second image should be on 4. position and 1. image bigger      
-        if len(images) == 2:
+
+        # if we have 2 images than second image should be on 4. position and 1. image bigger
+        if len(images) == CONST_SPECIAL_HANDLING_TWO:
             if i == 0:
                 image_width += int(image_width * 0.2)
                 image_height += int(image_height * 0.2)
             else:
                 row_idx += 1
-        
+
             # recalculate the offsets for 2 images
             offset_x = col_idx * (image_width - padding) + padding
             offset_y = row_idx * (image_height - padding) + padding

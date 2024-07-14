@@ -47,20 +47,31 @@ def arrange_images(
     # Determine the grid layout based on the number of images
     rows, cols = (2, 2) if num_images > 1 else (1, 1)
 
-    # Calculate resized image size and offsets
-    image_width = (background_width - (cols + 1) * padding) // cols
-    image_height = (background_height - (rows + 1) * padding - bottom_margin) // rows
-
     for i, image in enumerate(images):
         # Calculate row and column indices
         row_idx = i // cols
         col_idx = i % cols
 
-        # Calculate offsets based on resized image size and padding
-        offset_x = col_idx * (image_width + padding) + padding
-        offset_y = row_idx * (image_height + padding) + padding
+        # Calculate resized image size and offsets
+        image_width = (background_width - (cols + 1) * padding) // cols
+        image_height = (background_height - (rows + 1) * padding - bottom_margin) // rows
+        
+        # if we have 2 images than second image should be on 4. position and 1. image bigger      
+        if len(images) == 2:
+            if i == 0:
+                image_width += int(image_width * 0.2)
+                image_height += int(image_height * 0.2)
+            else:
+                row_idx += 1
+        
+            # recalculate the offsets for 2 images
+            offset_x = col_idx * (image_width - padding) + padding
+            offset_y = row_idx * (image_height - padding) + padding
+        else:
+            # Calculate offsets based on resized image size and padding
+            offset_x = col_idx * (image_width + padding) + padding
+            offset_y = row_idx * (image_height + padding) + padding
 
-        # Resize the image and paste it onto the background
         resized_image = resize_image(image, image_width, image_height)
         background.paste(resized_image, (offset_x, offset_y))
 

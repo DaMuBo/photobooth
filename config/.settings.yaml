@@ -12,3 +12,16 @@ paths:
 prompts:
   poem_prompt: "You are are poem writer. You see a picture from a party with happy people." \
   " Interprete the Picture and details you see. Write a Haiku about the picture."
+
+aws:
+  AWS_ACCESS_KEY_ID: "your access KEY"
+  AWS_SECRET_ACCESS_KEY: "your secrets"
+  AWS_DEFAULT_REGION: "your default region"
+  S3_BUCKET_NAME: "your default bucket name"
+
+openai:
+  OPENAI_KEY: "your openai KEY"
+  OPENAI_URL: "your openai URL"
+
+printer:
+  printer_name: "your printer name"

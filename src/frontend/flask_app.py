@@ -4,6 +4,8 @@ from flask import Flask, render_template
 
 from dotenv import load_dotenv
 
+from src.functions import settings
+
 from src.frontend.routes.route_select import select_bp
 from src.frontend.routes.route_result import result_bp
 from src.frontend.routes.route_qr_code import qr_code_bp
@@ -12,7 +14,7 @@ from src.frontend.routes.route_config import config_bp
 from src.frontend.routes.route_preview import preview_bp
 from src.frontend.routes.route_gst_pipes import gst_pipe_bp
 
-load_dotenv()
+setting = settings.Settings()
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent.parent
 static = ROOT / "src" / "frontend" / "static" / "images"

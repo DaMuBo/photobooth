@@ -4,12 +4,15 @@ import logging
 import boto3
 from botocore.exceptions import NoCredentialsError
 
+from src.functions import settings
+
 logger = logging.getLogger(__name__)
 
 
-def upload_to_s3(file_path, bucket_name, object_name):
+def upload_to_s3(setting: settings.Settings, file_path, object_name):
     """Upload a file to an S3 bucket and returns the download link."""
-    region = os.getenv("AWS_DEFAULT_REGION")
+    region = setting.get_setting("AWS_DEFAULT_REGION")
+    bucket_name = setting.get_setting("S3_BUCKET_NAME")
 
     # Set up the S3 client
     s3 = boto3.client("s3", region_name=region, endpoint_url=f"https://s3.{region}.amazonaws.com")

@@ -14,9 +14,8 @@ uploads
 
 /temp/
 
-
 # data
-./src/frontend/static/images/*
+src/frontend/static/images/*
 *.jpg
 ./config/settings.yaml
 

@@ -14,6 +14,7 @@ print_bp = Blueprint("print_bp", __name__)
 @print_bp.route("/printout", methods=["GET"])
 def printing():
     """Print the created img."""
-    printout.print_image_cups(static / "test_img_2.jpg", "Canon_SELPHY_CP1500")
+    save_path = static / "test_img_2.jpg"
+    printout.print_image_cups(save_path, "Canon_SELPHY_CP1500")
 
-    return render_template("printing.html")
+    return render_template("result.html", result_image_path=str(save_path))

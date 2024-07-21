@@ -78,10 +78,9 @@
             <img src="{{ url_for('static', filename='images/test_img_2.jpg') }}" alt="Result Image">
         </div>
         <div id="buttons-container">
-            <form action="/result/5" method="post">
-                <button type="submit" class="upload-print" name="upload-print"
-                        value="test_img_2.jpg">Upload + QR Code</button>
-            </form>
+            <a href="{{ url_for('qr_code_bp.qr_code') }}">
+                <button type="button" class="upload-print">Upload + QR Code</button>
+            </a>
             <a href="{{ url_for('print_bp.printing') }}">
                 <button type="button" class="print">Drucken</button>
             </a>

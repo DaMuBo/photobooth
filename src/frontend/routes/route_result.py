@@ -23,7 +23,8 @@ result_bp = Blueprint("result_bp", __name__)
 def result(num_images):
     """Show the result to users."""
     if request.method == "POST":
-        return redirect(url_for("qr_code_bp.qr_code"))
+        save_path = static / "test_img_2.jpg"
+        return render_template("result.html", result_image_path=str(save_path))
 
     response, status_code = route_gst_pipes.stop_pipeline()
     if status_code != SUCCESS_REQUEST:

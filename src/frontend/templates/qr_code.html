@@ -70,9 +70,10 @@
             <img id="qr_code_img" src="{{ qr_code_data_uri }}" alt="Result Image">
         </div>
         <div id="buttons-container">
-            <a href="{{ url_for('print_bp.printing') }}">
-                <button type="button" class="cancel">Zurück</button>
-            </a>
+            <form action="/result/5" method="post">
+                <button type="submit" class="print" name="print"
+                        value="test_img_2.jpg">Zurück</button>
+            </form>
         </div>
     </div>
 </body>

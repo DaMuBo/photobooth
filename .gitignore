@@ -15,7 +15,7 @@ uploads
 /temp/
 
 # data
-src/frontend/static/images/*
+src/frontend/static/images/test_img_2.jpg
 *.jpg
 config/settings.yaml
 

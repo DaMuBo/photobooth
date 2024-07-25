@@ -45,9 +45,7 @@ class Settings():
     def __init__(self, settings: pathlib.Path = DEFAULT_SETTINGS_PATH):
         self.settings = settings
         self.settings_list: List[str] = []
-
         self.load_settings()
-
     
     def load_settings(self):
         """Load the settings in the environment"""

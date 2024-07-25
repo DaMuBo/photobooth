@@ -39,18 +39,8 @@ app.register_blueprint(gst_pipe_bp)
 @app.route("/")
 def index():
     """Route to Main Page."""
-    welcome_header_path = text_dir / "welcome_header.txt"
-    welcome_text_path = text_dir / "welcome_text.txt"
-    if welcome_header_path.exists():
-        with open(welcome_header_path, "r", encoding="utf-8") as file:
-            welcome_header = file.read().replace("\\n", "\n")
-    else:
-        welcome_header = "Welcome on this Application"
-    if welcome_text_path.exists():
-        with open(welcome_text_path, "r", encoding="utf-8") as file:
-            welcome_text = file.read().replace("\\n", "\n")
-    else:
-        welcome_text = "Start on Buzzer"
+    welcome_header = setting.get_setting("welcome_main_text")
+    welcome_text = setting.get_setting("welcome_sub_text")
     return render_template("index.html", welcome_header=welcome_header, welcome_text=welcome_text)
 
 

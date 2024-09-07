@@ -1,5 +1,8 @@
 from pathlib import Path
 from random import choice
+import logging
+
+logger = logging.getLogger(__name__)
 
 from PIL import Image
 
@@ -11,7 +14,11 @@ def get_layout_random(layout_path: Path) -> Image.Image:
         for file in layout_path.iterdir()
         if file.is_file() and file.suffix in [".png", ".jpg", ".jpeg"] and "general" in file.name
     ]
-    file = choice(files)
+    if len(files) > 0:
+        file = choice(files)
+    else:
+        logger.warn("No layout file found. Returning None")
+        return None
     return Image.open(str(file))
 
 

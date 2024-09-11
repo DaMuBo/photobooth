@@ -12,29 +12,10 @@
         <p> Naming: with a number like 1, 2, 3 in the filenames they will be considered for the number of images selected by user <br>
             with "general" they will be considered for all as a backup</p>
         <div class="container">
-            <form action="{{ url_for('config_bp.config') }}" method="post" enctype="multipart/form-data">
-                <label for="photo">Choose a Layout Image:</label>
-                <input type="file" name="photo" accept=".jpg, .jpeg, .png">
-                <button type="submit" name="upload_button">Upload</button><br>
 
-                <label for="layout_text">Enter Layout Configuration Text:</label>
-                <input type="text" name="layout_text" id="layout_text" value="{{ layout_cfg_txt }}"><br>
-                <label for="welcome_header">Enter Welcome Header Text:</label>
-                <input type="text" name="welcome_header" id="welcome_header" value="{{ welcome_header_cfg_txt }}"><br>
-                <label for="welcome_text">Enter Welcome Text:</label>
-                <input type="text" name="welcome_text" id="welcome_text" value="{{ welcome_text_cfg_txt }}">
-                <button type="submit" name = "save_text_button">Save Text</button>
-            </form>
 
-            <ul>
-                {% for file in files %}
-                    <li>
-                        {{ file }}
-                        <a href="{{ url_for('config_bp.delete_file', filename=file) }}">Delete</a>
-                    </li>
-                {% endfor %}
-            </ul>
-
+            <a href="{{ url_for('wifi_bp.barcode_scanner') }}">
+                <button>Setup the Wifi</button>
             <a href="{{ url_for('index') }}">
                 <button>Back to Start</button>
             </a>

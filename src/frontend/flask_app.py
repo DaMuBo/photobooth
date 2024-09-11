@@ -13,6 +13,7 @@ from src.frontend.routes.route_print import print_bp
 from src.frontend.routes.route_config import config_bp
 from src.frontend.routes.route_preview import preview_bp
 from src.frontend.routes.route_gst_pipes import gst_pipe_bp
+from src.frontend.routes.route_setup_wifi import wifi_bp
 
 setting = settings.Settings()
 
@@ -34,7 +35,7 @@ app.register_blueprint(print_bp)
 app.register_blueprint(config_bp)
 app.register_blueprint(preview_bp)
 app.register_blueprint(gst_pipe_bp)
-
+app.register_blueprint(wifi_bp)
 
 @app.route("/")
 def index():

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        button {
+            margin-top: 10px;
+            padding: 25px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 8px;
+            color: #fff;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        button.ok {
+            background-color: #2ecc71;
+        }
+
+        button.ok:hover {
+            background-color: #27ae60;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <h1>Oh No something went Wrong!</h1>
+            <p>Just wait, I will bring you back to safety</p>
+            {% if error_message %}
+                <p class="error-message">Error: {{ error_message }}</p>
+            {% endif %}
+            <form action="/result/5" method="post">
+                <button type="submit" class="ok" name="ok"
+                        value="test_img_2.jpg">Ok habe ich geändert</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

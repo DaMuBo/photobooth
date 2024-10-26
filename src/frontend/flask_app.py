@@ -1,4 +1,6 @@
 import pathlib
+import logging
+from logging.handlers import RotatingFileHandler
 
 from flask import Flask, render_template
 
@@ -27,7 +29,14 @@ if not text_dir.exists():
 if not static.exists():
     static.mkdir(parents=True)
 
-app = Flask(__name__, static_url_path="/static")
+
+app = Flask(__name__)
+
+if not app.debug:
+    app.logger.setLevel(logging.INFO)
+
+app.logger.info('Flask app startup')
+
 app.register_blueprint(select_bp)
 app.register_blueprint(result_bp)
 app.register_blueprint(qr_code_bp)

@@ -12,7 +12,3 @@ def read_qr_code(image_path: str | pathlib.Path) -> str:
         return barcodes[0].data.decode("utf-8")
     else:
         return "Kein QR Code gefunden."
-    
-# Beispielaufruf
-image_path = pathlib.Path(__file__).resolve().parent / "test_qr.jpg"
-print(read_qr_code(image_path))

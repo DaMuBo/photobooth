@@ -54,7 +54,7 @@ def arrange_images(
 
         # Calculate resized image size and offsets
         image_width = (background_width - (cols + 1) * padding) // cols
-        image_height = (background_height - (rows + 1) * padding - bottom_margin) // rows
+        image_height = (background_height - rows * padding - bottom_margin) // rows
 
         # if we have 2 images than second image should be on 4. position and 1. image bigger
         if len(images) == CONST_SPECIAL_HANDLING_TWO:
